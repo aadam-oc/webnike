@@ -33,4 +33,13 @@ export class ApiRestService {
   eliminarProducto(producto: any): void {
     this.productos = this.productos.filter((p) => p !== producto);
   }
+
+  modificarProducto(producto: any): void {
+    const index = this.productos.findIndex((p) => p.referencia === producto.referencia);
+    this.productos[index] = producto;
+  }
+
+  obtenerProductoPorReferencia(referencia: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/productos/${referencia}`);
+  }
 }

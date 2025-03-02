@@ -1,8 +1,8 @@
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-  <!-- Referencia -->
+  <!-- Referencia (Número de Serie) -->
   <div class="form-group">
     <label for="referencia">N. Referencia</label>
-    <input type="number" class="form-control" id="referencia" formControlName="referencia">
+    <input type="number" class="form-control" id="referencia" formControlName="referencia" (blur)="buscarProducto()">
     <div *ngIf="productForm.get('referencia')?.invalid && productForm.get('referencia')?.touched" class="text-danger">
       <span *ngIf="productForm.get('referencia')?.errors?.['required']">Este campo es obligatorio.</span>
       <span *ngIf="productForm.get('referencia')?.errors?.['min']">El número debe ser mayor a 0.</span>
@@ -14,32 +14,18 @@
   <div class="form-group">
     <label for="nombre">Nombre Producto</label>
     <input type="text" class="form-control" id="nombre" formControlName="nombre">
-    <div *ngIf="productForm.get('nombre')?.invalid && productForm.get('nombre')?.touched" class="text-danger">
-      <span *ngIf="productForm.get('nombre')?.errors?.['required']">Este campo es obligatorio.</span>
-      <span *ngIf="productForm.get('nombre')?.errors?.['minlength']">Debe tener al menos 3 caracteres.</span>
-      <span *ngIf="productForm.get('nombre')?.errors?.['maxlength']">Máximo 50 caracteres permitidos.</span>
-    </div>
   </div>
 
   <!-- Precio -->
   <div class="form-group">
     <label for="precio">Precio</label>
     <input type="number" class="form-control" id="precio" formControlName="precio">
-    <div *ngIf="productForm.get('precio')?.invalid && productForm.get('precio')?.touched" class="text-danger">
-      <span *ngIf="productForm.get('precio')?.errors?.['required']">Este campo es obligatorio.</span>
-      <span *ngIf="productForm.get('precio')?.errors?.['min']">El precio debe ser mayor a 0.</span>
-    </div>
   </div>
 
   <!-- Descripción -->
   <div class="form-group">
     <label for="descripcion">Descripción</label>
     <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
-    <div *ngIf="productForm.get('descripcion')?.invalid && productForm.get('descripcion')?.touched" class="text-danger">
-      <span *ngIf="productForm.get('descripcion')?.errors?.['required']">Este campo es obligatorio.</span>
-      <span *ngIf="productForm.get('descripcion')?.errors?.['minlength']">Mínimo 10 caracteres.</span>
-      <span *ngIf="productForm.get('descripcion')?.errors?.['maxlength']">Máximo 200 caracteres.</span>
-    </div>
   </div>
 
   <!-- Tipo de Producto -->
@@ -51,9 +37,6 @@
       <option value="ropa">Ropa</option>
       <option value="accesorios">Accesorios</option>
     </select>
-    <div *ngIf="productForm.get('tipoProducto')?.invalid && productForm.get('tipoProducto')?.touched" class="text-danger">
-      Este campo es obligatorio.
-    </div>
   </div>
 
   <!-- Oferta -->
@@ -72,6 +55,8 @@
     <img *ngIf="imagenUrl" [src]="imagenUrl" alt="Vista previa" width="150">
   </div>
 
-  <!-- Botón de Submit -->
-  <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid || !imagenUrl">Aceptar</button>
+  <!-- Botón de Acción -->
+  <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid || !imagenUrl">
+    {{ productoExistente ? 'Modificar' : 'Aceptar' }}
+  </button>
 </form>

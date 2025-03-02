@@ -13,8 +13,9 @@ import { CommonModule } from '@angular/common';
 })
 export class FormularioComponent implements OnInit {
   productForm: FormGroup;
-  imagenUrl: string = ''; // URL de la imagen subida
-  imagenSeleccionada: boolean = false; // Indica si hay una imagen en proceso
+  imagenUrl: string = '';
+  imagenSeleccionada: boolean = false;
+  productoExistente: boolean = false;
 
   constructor(private fb: FormBuilder, private apiService: ApiRestService) {
     this.productForm = this.fb.group({
@@ -29,39 +30,67 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // 📌 Manejar la selección de la imagen
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
+  // 📌 Busca si la referencia existe en la base de datos
+  buscarProducto(): void {
+    const referencia = this.productForm.get('referencia')?.value;
 
-    if (file) {
-      this.imagenSeleccionada = true; // Activamos el indicador de subida
-
-      this.apiService.subirImagen(file).subscribe(response => {
-        this.imagenUrl = response.imageUrl; // Guardamos la URL de la imagen
-        this.imagenSeleccionada = false; // Subida completada
+    if (referencia) {
+      this.apiService.obtenerProductoPorReferencia(referencia).subscribe(producto => {
+        if (producto) {
+          this.productForm.patchValue({
+            nombre: producto.nombre,
+            precio: producto.precio,
+            descripcion: producto.descripcion,
+            tipoProducto: producto.tipoProducto,
+            oferta: producto.oferta
+          });
+          this.imagenUrl = producto.imagen;
+          this.productoExistente = true; // Cambia a modo edición
+        } else {
+          this.productoExistente = false; // Modo inserción
+        }
       });
     }
   }
 
-  // 📌 Manejar el envío del formulario
+  // 📌 Maneja la selección de la imagen
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.imagenSeleccionada = true;
+
+      this.apiService.subirImagen(file).subscribe(response => {
+        this.imagenUrl = response.imageUrl;
+        this.imagenSeleccionada = false;
+      });
+    }
+  }
+
+  // 📌 Enviar el formulario (Inserción o Modificación)
   onSubmit(): void {
     if (this.productForm.valid && this.imagenUrl) {
       const producto = {
         referencia: this.productForm.value.referencia,
         nombre: this.productForm.value.nombre,
-        precio: Number(this.productForm.value.precio), // Asegurar que es número
+        precio: Number(this.productForm.value.precio),
         descripcion: this.productForm.value.descripcion,
         tipoProducto: this.productForm.value.tipoProducto,
         oferta: this.productForm.value.oferta || false,
         imagen: this.imagenUrl
       };
-  
-      this.apiService.añadirProducto(producto);
-      console.log('Producto añadido:', producto);
-      
-      // Resetear formulario
+
+      if (this.productoExistente) {
+        this.apiService.modificarProducto(producto); // 🔄 Si existe, modificar
+        console.log('Producto modificado:', producto);
+      } else {
+        this.apiService.añadirProducto(producto); // 🆕 Si no existe, insertar
+        console.log('Producto añadido:', producto);
+      }
+
       this.productForm.reset();
       this.imagenUrl = '';
+      this.productoExistente = false;
     } else {
       console.log('Formulario inválido o imagen no subida');
     }

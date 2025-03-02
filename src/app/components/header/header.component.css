@@ -1,0 +1,78 @@
+.nike-header {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .nike-header__top {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px 20px;
+    font-size: 12px;
+    background-color: #000000;
+  }
+  
+  .nike-header__top ul {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+  }
+  
+  .nike-top-icon {
+    height: 16px;
+    margin-right: 5px;
+    
+  }
+  
+  .nike-header__main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .nike-header__left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nike-logo {
+    height: 40px;
+    margin-right: 20px;
+  }
+  
+  .nike-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .nike-nav ul li a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .nike-header__center {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .nike-search {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    text-align: center;
+  }
+  
+  .nike-header__right {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .nike-icon {
+    height: 25px;
+    cursor: pointer;
+  }

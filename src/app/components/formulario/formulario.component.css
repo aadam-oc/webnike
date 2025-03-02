@@ -1,0 +1,113 @@
+/* Fondo y contenedor general */
+form {
+    background-color: #f5f5f5;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  /* Estilos del formulario */
+  .form-group {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  /* Estilo para las etiquetas */
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  /* Estilo para los inputs, selects y textareas */
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #333;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #111;
+    outline: none;
+  }
+  
+  /* Estilo para el área de descripción (textarea) */
+  textarea {
+    height: 120px;
+    resize: vertical;
+  }
+  
+  /* Estilo para el checkbox */
+  input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 10px;
+  }
+  
+  /* Botón de envío */
+  button {
+    background-color: #111;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Estilo para las opciones del producto */
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    padding-right: 25px; /* Espacio para la flecha del select */
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"%3E%3Cpath d="M5 7l5 5 5-5" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /%3E%3C/svg%3E');
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+  }
+  
+  /* Estilo para inputs de tipo file (imagen) */
+  input[type="file"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+  }
+  
+  /* Para que el formulario sea más responsivo */
+  @media (max-width: 768px) {
+    form {
+      padding: 20px;
+      margin: 20px;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+    }
+  }
+  

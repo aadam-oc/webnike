@@ -1,0 +1,13 @@
+<div class="product-container">
+  <div class="product-card" *ngFor="let producto of productos">
+    <!-- Mostrar la imagen del producto -->
+    <img class="product-image" [src]="producto.imagen" alt="{{ producto.nombre }}">
+
+    <div class="product-info">
+      <p class="product-title">{{ producto.nombre }}</p>
+      <p class="product-description">{{ producto.descripcion }}</p>
+      <p class="product-price">{{ producto.precio }} €</p>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,50 @@
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas fijas */
+    gap: 30px; /* Espacio entre tarjetas */
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto; /* Centrar la cuadrícula */
+  }
+  
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 400px; /* Aumentamos altura de la imagen */
+    object-fit: cover; /* Ajuste perfecto */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .product-image:hover {
+    transform: scale(1.05); /* Efecto zoom */
+  }
+  
+  .product-info {
+    padding-top: 15px;
+    text-align: left;
+  }
+  
+  .product-title {
+    font-weight: bold;
+    font-size: 18px; /* Texto más grande */
+    margin: 5px 0;
+  }
+  
+  .product-description {
+    color: #777;
+    font-size: 16px;
+  }
+  
+  .product-price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  

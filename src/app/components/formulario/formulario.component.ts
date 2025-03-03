@@ -30,7 +30,6 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // 📌 Busca si la referencia existe en la base de datos
   buscarProducto(): void {
     const referencia = this.productForm.get('referencia')?.value;
 
@@ -45,15 +44,14 @@ export class FormularioComponent implements OnInit {
             oferta: producto.oferta
           });
           this.imagenUrl = producto.imagen;
-          this.productoExistente = true; // Cambia a modo edición
+          this.productoExistente = true;
         } else {
-          this.productoExistente = false; // Modo inserción
+          this.productoExistente = false;
         }
       });
     }
   }
 
-  // 📌 Maneja la selección de la imagen
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
 
@@ -67,7 +65,6 @@ export class FormularioComponent implements OnInit {
     }
   }
 
-  // 📌 Enviar el formulario (Inserción o Modificación)
   onSubmit(): void {
     if (this.productForm.valid && this.imagenUrl) {
       const producto = {
@@ -81,10 +78,10 @@ export class FormularioComponent implements OnInit {
       };
 
       if (this.productoExistente) {
-        this.apiService.modificarProducto(producto); // 🔄 Si existe, modificar
+        this.apiService.modificarProducto(producto); 
         console.log('Producto modificado:', producto);
       } else {
-        this.apiService.añadirProducto(producto); // 🆕 Si no existe, insertar
+        this.apiService.añadirProducto(producto);
         console.log('Producto añadido:', producto);
       }
 

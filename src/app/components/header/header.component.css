@@ -1,78 +1,121 @@
 .nike-header {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .nike-header__top {
-    display: flex;
-    justify-content: flex-end;
-    padding: 5px 20px;
-    font-size: 12px;
-    background-color: #000000;
-  }
-  
-  .nike-header__top ul {
-    display: flex;
-    list-style: none;
-    gap: 15px;
-  }
-  
-  .nike-top-icon {
-    height: 16px;
-    margin-right: 5px;
-    
-  }
-  
-  .nike-header__main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-  }
-  
-  .nike-header__left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .nike-logo {
-    height: 40px;
-    margin-right: 20px;
-  }
-  
-  .nike-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-  }
-  
-  .nike-nav ul li a {
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-  }
-  
-  .nike-header__center {
-    flex-grow: 1;
-    text-align: center;
-  }
-  
-  .nike-search {
-    padding: 8px;
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    text-align: center;
-  }
-  
-  .nike-header__right {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .nike-icon {
-    height: 25px;
-    cursor: pointer;
-  }
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  font-family: 'Arial', sans-serif;
+}
+
+/* 🔹 Barra superior (Top Bar) */
+.nike-header__top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px 20px;
+  font-size: 12px;
+  background-color: #f5f5f5;
+  max-height: 10px;
+}
+
+.nike-header__top ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.nike-header__top li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nike-top-icon {
+  height: 16px;
+  margin-right: 5px;
+}
+
+/* 🔹 Barra principal */
+.nike-header__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  max-height: 30px;
+}
+
+/* 🔹 Logo */
+.nike-header__left {
+  display: flex;
+  align-items: center;
+}
+
+.nike-logo {
+  height: 45px;
+  margin-right: 25px;
+}
+
+/* 🔹 Menú de navegación */
+.nike-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.nike-nav ul li {
+  position: relative;
+}
+
+.nike-nav ul li a {
+  text-decoration: none;
+  color: #111;
+  font-size: 14px;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.nike-nav ul li a:hover {
+  color: #757575;
+}
+
+/* 🔹 Barra de búsqueda */
+.nike-header__center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nike-search {
+  padding: 10px;
+  width: 320px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 14px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.nike-search:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+/* 🔹 Iconos a la derecha */
+.nike-header__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nike-icon {
+  height: 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.nike-icon:hover {
+  transform: scale(1.1);
+}

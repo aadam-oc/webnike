@@ -19,7 +19,7 @@ export class FormularioComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private apiService: ApiRestService) {
     this.productForm = this.fb.group({
-      referencia: ['', [Validators.required, Validators.min(1), Validators.max(999999)]],
+      referencia: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
       nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       precio: ['', [Validators.required, Validators.min(0.01)]],
       descripcion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
@@ -28,7 +28,7 @@ export class FormularioComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   buscarProducto(): void {
     const referencia = this.productForm.get('referencia')?.value;
@@ -78,7 +78,7 @@ export class FormularioComponent implements OnInit {
       };
 
       if (this.productoExistente) {
-        this.apiService.modificarProducto(producto); 
+        this.apiService.modificarProducto(producto);
         console.log('Producto modificado:', producto);
       } else {
         this.apiService.añadirProducto(producto);

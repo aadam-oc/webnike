@@ -28,27 +28,27 @@ export class FormularioComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   buscarProducto(): void {
     const referencia = this.productForm.get('referencia')?.value;
 
     if (referencia) {
-      this.apiService.obtenerProductoPorReferencia(referencia).subscribe(producto => {
-        if (producto) {
-          this.productForm.patchValue({
-            nombre: producto.nombre,
-            precio: producto.precio,
-            descripcion: producto.descripcion,
-            tipoProducto: producto.tipoProducto,
-            oferta: producto.oferta
-          });
-          this.imagenUrl = producto.imagen;
-          this.productoExistente = true;
-        } else {
-          this.productoExistente = false;
-        }
-      });
+      const producto = this.apiService.obtenerProducto(referencia);
+
+      if (producto) {
+        this.productForm.patchValue({
+          nombre: producto.nombre,
+          precio: producto.precio,
+          descripcion: producto.descripcion,
+          tipoProducto: producto.tipoProducto,
+          oferta: producto.oferta
+        });
+        this.imagenUrl = producto.imagen;
+        this.productoExistente = true;
+      } else {
+        this.productoExistente = false;
+      }
     }
   }
 
@@ -77,6 +77,11 @@ export class FormularioComponent implements OnInit {
         imagen: this.imagenUrl
       };
 
+      if (this.apiService.existeNombreProducto(producto.nombre, producto.referencia)) {
+        alert('Error: Ya existe un producto con este nombre.');
+        return; 
+      }
+
       if (this.productoExistente) {
         this.apiService.modificarProducto(producto);
         console.log('Producto modificado:', producto);
@@ -84,6 +89,8 @@ export class FormularioComponent implements OnInit {
         this.apiService.añadirProducto(producto);
         console.log('Producto añadido:', producto);
       }
+
+
 
       this.productForm.reset();
       this.imagenUrl = '';

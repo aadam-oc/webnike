@@ -29,17 +29,28 @@ export class ApiRestService {
     return this.productos;
   }
 
+  //Obtiene producto por referencia
+  obtenerProducto(referencia: number){
+    return this.productos.find(p => p.referencia === referencia)
+  }
+
   // Eliminar producto
   eliminarProducto(producto: any): void {
     this.productos = this.productos.filter((p) => p !== producto);
   }
 
+  //Modifica producto 
   modificarProducto(producto: any): void {
-    const index = this.productos.findIndex((p) => p.referencia === producto.referencia);
-    this.productos[index] = producto;
+    const index = this.productos.findIndex((p) => p.referencia === producto.referencia);//el findindex devualve el primer objeto del array que cumpla las caracteristicas en este caso que las referencias coincidan
+    if (index !== -1) {
+      this.productos[index] = producto;
+    } else {
+      console.error('Producto no encontrado para modificar.');
+    }
   }
 
-  obtenerProductoPorReferencia(referencia: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/productos/${referencia}`);
+  //Comprueba que el nombre de producto exista
+  existeNombreProducto(nombre: string, referenciaActual: number): boolean {
+    return this.productos.some(p => p.nombre === nombre && p.referencia !== referenciaActual);//Some comprueba si alguno de los productos tenga un nombre igual pero una referencia distinta
   }
 }

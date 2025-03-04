@@ -25,18 +25,13 @@ export class ApiRestService {
   }
 
   // Obtener productos
-  obtenerProductos(): any[] {
+  obtenerProductos(): any[] {//uso esta funcin en productos.component para recoger 
     return this.productos;
   }
 
   //Obtiene producto por referencia
   obtenerProducto(referencia: number){
-    return this.productos.find(p => p.referencia === referencia)
-  }
-
-  // Eliminar producto
-  eliminarProducto(producto: any): void {
-    this.productos = this.productos.filter((p) => p !== producto);
+    return this.productos.find(p => p.referencia === referencia)//find busca el objeto del array que coincida con el parametro que le he pasado, en este caso la referencia para que si en el formulario le insertas una referencia que ya existe 
   }
 
   //Modifica producto 

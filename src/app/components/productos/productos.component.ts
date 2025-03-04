@@ -16,11 +16,8 @@ export class ProductosComponent implements OnInit {
   constructor(private apiService: ApiRestService) {}
 
   ngOnInit(): void {
-    this.productos = this.apiService.obtenerProductos(); // Carga los productos
+    this.productos = this.apiService.obtenerProductos(); // Carga los productos de la api
   }
 
-  eliminarProducto(producto: any): void {
-    this.apiService.eliminarProducto(producto);
-    this.productos = this.apiService.obtenerProductos(); // Actualiza la lista
-  }
+  
 }

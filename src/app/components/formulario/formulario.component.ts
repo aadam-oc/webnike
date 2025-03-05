@@ -12,62 +12,62 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./formulario.component.css']
 })
 export class FormularioComponent implements OnInit {
-  productForm: FormGroup;
+  productForm: FormGroup; 
   imagenUrl: string = '';
   imagenSeleccionada: boolean = false;
   productoExistente: boolean = false;
 
   constructor(private fb: FormBuilder, private apiService: ApiRestService) {
     this.productForm = this.fb.group({
-      referencia: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
-      nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      precio: ['', [Validators.required, Validators.min(0.01)]],
-      descripcion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
-      tipoProducto: ['', Validators.required],
+      referencia: ['', [Validators.required, Validators.min(1), Validators.max(10)]], // Referencia de 1 a 10 dígitos
+      nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]], // Nombre de 3 a 50 caracteres
+      precio: ['', [Validators.required, Validators.min(0.01)]], // Precio mínimo 0.01
+      descripcion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]], // Descripción de 10 a 200 caracteres
+      tipoProducto: ['', Validators.required], 
       oferta: [false]
     });
   }
 
   ngOnInit(): void {}
 
-  buscarProducto(): void {
-    const referencia = this.productForm.get('referencia')?.value;
+  buscarProducto(): void { 
+    const referencia = this.productForm.get('referencia')?.value; //Recoge el valor de referencia 
 
-    if (referencia) {
-      const producto = this.apiService.obtenerProducto(referencia);
+    if (referencia) { //Si referencia existe recoge el producto del array y lo muestra en los inserts del formulario
+      const producto = this.apiService.obtenerProducto(referencia); //Usa la funcion de la api para obtener el producto por la referencia
 
-      if (producto) {
-        this.productForm.patchValue({
-          nombre: producto.nombre,
+      if (producto) { //Si el producto existe muestra los datos en los inputs del formulario
+        this.productForm.patchValue({ //Setea los valores de los inputs del formulario
+          nombre: producto.nombre, 
           precio: producto.precio,
           descripcion: producto.descripcion,
           tipoProducto: producto.tipoProducto,
           oferta: producto.oferta
         });
-        this.imagenUrl = producto.imagen;
-        this.productoExistente = true;
-      } else {
+        this.imagenUrl = producto.imagen; //Setea la imagen del producto en la variable imagenUrl
+        this.productoExistente = true; //Setea la variable productoExistente a true ya que si entra aqui es que existe
+      } else { //Si no existe el producto setea productoExistente a false para que onsubmit cree un nuevo producto
         this.productoExistente = false;
       }
     }
   }
 
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
+  onFileSelected(event: any): void {//Esta funcion se ejecuta en el html cuando se selecciona una imagen
+    const file: File = event.target.files[0];//Recoge el archivo seleccionado
 
-    if (file) {
-      this.imagenSeleccionada = true;
+    if (file) { //Si el archivo existe se sube a la api
+      this.imagenSeleccionada = true; //Setea la variable imagenSeleccionada a true para que se muestre el texto de que se esta subiendo la imagen
 
-      this.apiService.subirImagen(file).subscribe(response => {
-        this.imagenUrl = response.imageUrl;
-        this.imagenSeleccionada = false;
+      this.apiService.subirImagen(file).subscribe(response => { //Sube la imagen a la api y recoge la url de la imagen
+        this.imagenUrl = response.imageUrl; //Setea la url de la imagen en la variable imagenUrl
+        this.imagenSeleccionada = false; //Setea la variable imagenSeleccionada a false para que se muestre la vista previa de la imagen
       });
     }
   }
 
-  onSubmit(): void {
-    if (this.productForm.valid && this.imagenUrl) {
-      const producto = {
+  onSubmit(): void { //Esta funcion se ejecuta cuando se pulsa el boton de submit
+    if (this.productForm.valid && this.imagenUrl) { //Si el formulario es valido y la imagen esta subida
+      const producto = { //Crea un objeto producto con los valores del formulario
         referencia: this.productForm.value.referencia,
         nombre: this.productForm.value.nombre,
         precio: Number(this.productForm.value.precio),

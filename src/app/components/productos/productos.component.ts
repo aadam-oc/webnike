@@ -16,7 +16,7 @@ export class ProductosComponent implements OnInit {
   constructor(private apiService: ApiRestService) {}
 
   ngOnInit(): void {
-    this.productos = this.apiService.obtenerProductos(); // Carga los productos de la api
+    this.productos = this.apiService.obtenerProductos();
   }
 
   
